@@ -12,7 +12,8 @@ import "../logout/logout.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-axios.defaults.baseURL = "http://localhost:4000";
+const baseURL = import.meta.env.VITE_API_URL || "http://localhost:4000";
+axios.defaults.baseURL = baseURL;
 
 function Profile() {
   const [screenSize, setScreenSize] = useState(false);
@@ -73,7 +74,7 @@ function Profile() {
       <div className="row">
         <Col md={3} lg={3}></Col>
         <Col xs={9} md={6} lg={6}>
-          {tweetComponentVisibility && <ProfileTweet id={id} />} {}
+          {tweetComponentVisibility && <ProfileTweet id={id} />} { }
         </Col>
         <Col md={3} lg={3}></Col>
       </div>

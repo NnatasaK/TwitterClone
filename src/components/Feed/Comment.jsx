@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { getOneUser } from '../../userServices';
 
-axios.defaults.baseURL = "http://localhost:4000";
+const baseURL = import.meta.env.VITE_API_URL || "http://localhost:4000";
+axios.defaults.baseURL = baseURL;
 axios.defaults.withCredentials = true;
 
 function CommentForm({ postId, onCommentSubmit }) {
@@ -11,7 +12,6 @@ function CommentForm({ postId, onCommentSubmit }) {
     const [status, setStatus] = useState("");
 
     const userId = localStorage.getItem("userId");
-
 
     useEffect(() => {
         const fetchData = async () => {
@@ -38,13 +38,12 @@ function CommentForm({ postId, onCommentSubmit }) {
             return;
         }
         try {
-            const response = await axios.post(`http://localhost:4000/comment/${postId}`,
-                {
-                    userId: userId,
-                    username: user.username,
-                    content: content,
-                    postId: postId
-                }, {
+            const response = await axios.post(`/comment/${postId}`, {
+                userId: userId,
+                username: user.username,
+                content: content,
+                postId: postId
+            }, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -70,10 +69,8 @@ function CommentForm({ postId, onCommentSubmit }) {
                 value={content}
                 onChange={handleInputChange}
                 placeholder="Post your comment"
-
             />
             <button className='feed-btn' onClick={handleSubmit}>Post</button>
-
         </form>
     );
 }

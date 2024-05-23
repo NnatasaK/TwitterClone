@@ -9,6 +9,8 @@ import Avatar from '@mui/material/Avatar';
 import { useNavigate } from 'react-router-dom';
 import { deepPurple } from '@mui/material/colors';
 
+const baseURL = import.meta.env.VITE_API_URL || "http://localhost:4000";
+
 function Post({ post, fetchPosts }) {
     const [profilePhoto, setProfilePhoto] = useState(null);
     const [addComment, setAddComment] = useState(false);
@@ -23,7 +25,7 @@ function Post({ post, fetchPosts }) {
 
     const fetchProfilePhoto = async () => {
         try {
-            const response = await axios.get('http://localhost:4000/posts/random-dog-image');
+            const response = await axios.get(`${baseURL}/posts/random-dog-image`);
             const randomDogImageUrl = response.data.message;
             setProfilePhoto(randomDogImageUrl);
         } catch (error) {
@@ -33,7 +35,7 @@ function Post({ post, fetchPosts }) {
 
     const fetchComments = async () => {
         try {
-            const response = await axios.get(`http://localhost:4000/tweets/${post._id}`);
+            const response = await axios.get(`${baseURL}/tweets/${post._id}`);
             setComments(response.data);
         } catch (error) {
             console.error('Error fetching comments:', error);
@@ -52,7 +54,7 @@ function Post({ post, fetchPosts }) {
 
     const handleDeleteComment = async (commentId) => {
         try {
-            await axios.delete(`http://localhost:4000/comment/${commentId}`);
+            await axios.delete(`${baseURL}/comment/${commentId}`);
             fetchComments(); // Refresh comments after deletion
             fetchPosts(); // Update the parent component to reflect changes
         } catch (error) {
@@ -62,7 +64,7 @@ function Post({ post, fetchPosts }) {
 
     const handleDeleteReply = async (commentId, replyId) => {
         try {
-            await axios.delete(`http://localhost:4000/comment/${commentId}/reply/${replyId}`);
+            await axios.delete(`${baseURL}/comment/${commentId}/reply/${replyId}`);
             fetchComments(); // Refresh comments after deletion
         } catch (error) {
             console.error('Error deleting reply:', error);

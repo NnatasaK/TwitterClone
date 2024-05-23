@@ -40,7 +40,8 @@ const GoodIconComponent = styled(FmdGoodOutlinedIcon)({
   color: blue[500],
 });
 
-axios.defaults.baseURL = "http://localhost:4000";
+
+axios.defaults.baseURL = import.meta.env.VITE_API_URL || "http://localhost:4000";
 axios.defaults.withCredentials = true;
 
 const Tweetbox = () => {

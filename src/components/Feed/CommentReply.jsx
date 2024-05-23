@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { getOneUser } from '../../userServices';
 
-axios.defaults.baseURL = "http://localhost:4000";
+const baseURL = import.meta.env.VITE_API_URL || "http://localhost:4000";
+axios.defaults.baseURL = baseURL;
 axios.defaults.withCredentials = true;
-
 
 function ReplyForm({ commentId, onReplySubmit }) {
     const [content, setContent] = useState('');
@@ -38,11 +38,10 @@ function ReplyForm({ commentId, onReplySubmit }) {
             return;
         }
         try {
-            const response = await axios.post(`http://localhost:4000/comment/${commentId}/reply`, {
+            const response = await axios.post(`/comment/${commentId}/reply`, {
                 userId: userId,
                 content: content,
                 username: user.username,
-                /*  commentId: commentId */
             });
 
             if (onReplySubmit) {
@@ -61,7 +60,6 @@ function ReplyForm({ commentId, onReplySubmit }) {
                 value={content}
                 onChange={handleInputChange}
                 placeholder="Post your reply..."
-
             />
             <button className='feed-btn' type="submit">Reply</button>
         </form>

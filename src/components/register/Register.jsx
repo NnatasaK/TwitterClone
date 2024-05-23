@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./register.css";
 
-axios.defaults.baseURL = "http://localhost:4000";
+const baseURL = import.meta.env.VITE_API_URL || "http://localhost:4000";
 
 const RegisterUser = () => {
 

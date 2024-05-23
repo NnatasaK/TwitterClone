@@ -5,6 +5,8 @@ import { FiSettings } from "react-icons/fi";
 import Post from "./Post";
 import Tweetbox from "../Tweet/Tweetbox";
 
+const baseURL = import.meta.env.VITE_API_URL || "http://localhost:4000";
+
 function Feed() {
     const [posts, setPosts] = useState([]);
     const userId = localStorage.getItem('userId');
@@ -17,7 +19,7 @@ function Feed() {
 
     const fetchPostsFromFollowedUsers = async (userId) => {
         try {
-            const response = await axios.get(`http://localhost:4000/tweets/followingPosts/${userId}`);
+            const response = await axios.get(`${baseURL}/tweets/followingPosts/${userId}`);
             console.log('Fetched posts from followed users:', response.data);
             setPosts(response.data);
         } catch (error) {
@@ -51,7 +53,6 @@ function Feed() {
 }
 
 export default Feed;
-
 
 
 

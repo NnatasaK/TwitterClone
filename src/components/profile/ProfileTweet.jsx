@@ -6,6 +6,8 @@ import axios from "axios";
 import { FaRegComment } from "react-icons/fa";
 import ReplyForm from "../Feed/CommentReply";
 
+const baseURL = import.meta.env.VITE_API_URL || "http://localhost:4000";
+
 function ProfileTweet({ id }) {
   const [tweets, setTweets] = useState([]);
   const [user, setUser] = useState(null);
@@ -39,7 +41,7 @@ function ProfileTweet({ id }) {
 
   const fetchComments = async (tweetId) => {
     try {
-      const response = await axios.get(`http://localhost:4000/comment/${tweetId}`);
+      const response = await axios.get(`${baseURL}/comment/${tweetId}`);
       setComments((prevState) => ({
         ...prevState,
         [tweetId]: response.data,
@@ -59,7 +61,7 @@ function ProfileTweet({ id }) {
 
   const handleDeleteComment = async (tweetId, commentId) => {
     try {
-      await axios.delete(`http://localhost:4000/comment/${commentId}`);
+      await axios.delete(`${baseURL}/comment/${commentId}`);
       fetchComments(tweetId); // Refresh comments after deletion
     } catch (error) {
       console.error('Error deleting comment:', error);
@@ -68,7 +70,7 @@ function ProfileTweet({ id }) {
 
   const handleDeleteReply = async (tweetId, commentId, replyId) => {
     try {
-      await axios.delete(`http://localhost:4000/comment/${commentId}/reply/${replyId}`);
+      await axios.delete(`${baseURL}/comment/${commentId}/reply/${replyId}`);
       fetchComments(tweetId); // Refresh comments after deletion
     } catch (error) {
       console.error('Error deleting reply:', error);

@@ -12,6 +12,7 @@ import LogoutConfirmationModal from "./components/logout/Logout";
 // import ProfileCopy from "./components/profile/ProfileCopy";
 
 function App() {
+
   return (
     <Router>
       <Routes>
