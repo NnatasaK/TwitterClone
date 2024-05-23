@@ -1,7 +1,7 @@
 import axios from "axios";
 
 
-const url = import.meta.env.VITE_API_URL || "http://localhost:4000";
+const url = import.meta.env.VITE_API_URL /* || "http://localhost:4000" */;
 
 const getTop5Hash = async (id) => {
   try {

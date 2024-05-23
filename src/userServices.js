@@ -129,7 +129,7 @@
 import axios from 'axios';
 
 // Set the base URL for axios from environment variables
-const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:4000';
+const baseURL = import.meta.env.VITE_API_URL /* || 'http://localhost:4000' */;
 axios.defaults.baseURL = baseURL;
 axios.defaults.withCredentials = true;
 
